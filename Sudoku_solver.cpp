@@ -144,8 +144,9 @@ void playGame(int board[N][N]){
 
 int main() {
 
-    system("title Sudoku Game");
+    system("Sudoku Game");
     system("color B0");
+
     int board[N][N] = {
         {3, 0, 6, 5, 0, 8, 4, 0, 0},
         {5, 2, 0, 0, 0, 0, 0, 0, 0},
@@ -167,13 +168,46 @@ int main() {
 
         int choice;
         cout << endl << endl;
-        cout << "\t\t[1] Solve the Sudoku" << endl;
+        cout << "\t\t[0] Get solution to your Sudoku" << endl;
+        cout << "\t\t[1] Get the Sudoku to solve" << endl;
         cout << "\t\t[2] Unable to solve? View the solved Sudoku" << endl;
         cout << "\t\t[3] Exit" << endl;
         cout << "\t\tEnter your choice: ";
         cin >> choice;
 
         switch (choice) {
+            case 0:
+                cout<<"Enter your sudoku. Put 0 for blanks\n";
+                for(int i=0;i<N;i++){
+                    for(int j=0;j<N;j++){
+                        cin>>board[i][j];
+                    }
+                }
+
+                if (solveSudoku(board, 0, 0))
+                {
+                    cout << "Completely Solved Sudoku is: "<< endl;
+                    cout << endl << endl;
+                    for (int row = 0; row < N; row++){
+                        for (int col = 0; col < N; col++){
+                            if(col == 3 || col == 6)
+                                cout << " | ";
+                            cout << board[row][col] <<" ";
+                        }
+                        if(row == 2 || row == 5){
+                            cout << endl;
+                            for(int i = 0; i<N; i++)
+                                cout << "---";
+                        }
+                        cout << endl;
+                    }
+                    cout << endl;
+                    cout << "Better luck next time!!!" << endl;
+                }
+                else
+                    cout << "No solution found" << endl;
+            break;
+
             case 1:
                 playGame(board);
                 break;
@@ -196,7 +230,7 @@ int main() {
                         cout << endl;
                     }
                     cout << endl;
-                    cout << "Better luck next time!!!" << endl;
+                    cout << "TRY TRY You can definitely solve it next time!!!" << endl;
                 }
                 else
                     cout << "No solution found" << endl;
